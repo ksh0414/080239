@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 
 template <typename T>
 struct cir_list_node
@@ -27,7 +27,7 @@ private:
 public:
 	cir_list() : n(0)
 	{
-		head = new node {NULL, NULL, NULL}; // ëª¨ë‘ NULLë¡œ êµ¬ì„±ëœ ê¸°ë³¸ ë…¸ë“œ
+		head = new node {NULL, NULL, NULL}; // ¸ğµÎ NULL·Î ±¸¼ºµÈ ±âº» ³ëµå
 		head->next = head;
 		head->prev = head;
 	}
@@ -152,16 +152,16 @@ public:
 
 	cir_list(const cir_list<T>& other) : cir_list()
 	{
-		// ì•„ë˜ ì½”ë“œëŠ” ì›ì†Œë¥¼ ì—­ìˆœìœ¼ë¡œ ì‚½ì…í•˜ì§€ë§Œ, 
-		// ì›í˜• ë¦¬ìŠ¤íŠ¸ì´ê¸° ë•Œë¬¸ì— ë¬¸ì œê°€ ì—†ìŠµë‹ˆë‹¤.
+		// ¾Æ·¡ ÄÚµå´Â ¿ø¼Ò¸¦ ¿ª¼øÀ¸·Î »ğÀÔÇÏÁö¸¸, 
+		// ¿øÇü ¸®½ºÆ®ÀÌ±â ¶§¹®¿¡ ¹®Á¦°¡ ¾ø½À´Ï´Ù.
 		for (const auto& i : other)
 			insert(i);
 	}
 
 	cir_list(const std::initializer_list<T>& il) : head(NULL), n(0)
 	{
-		// ì•„ë˜ ì½”ë“œëŠ” ì›ì†Œë¥¼ ì—­ìˆœìœ¼ë¡œ ì‚½ì…í•˜ì§€ë§Œ, 
-		// ì›í˜• ë¦¬ìŠ¤íŠ¸ì´ê¸° ë•Œë¬¸ì— ë¬¸ì œê°€ ì—†ìŠµë‹ˆë‹¤.
+		// ¾Æ·¡ ÄÚµå´Â ¿ø¼Ò¸¦ ¿ª¼øÀ¸·Î »ğÀÔÇÏÁö¸¸, 
+		// ¿øÇü ¸®½ºÆ®ÀÌ±â ¶§¹®¿¡ ¹®Á¦°¡ ¾ø½À´Ï´Ù.
 		for (const auto& i : il)
 			insert(i);
 	}
@@ -204,12 +204,13 @@ int main()
 	playlist pl;
 	pl.insert(1);
 	pl.insert(2);
-	std::cout << "ì¬ìƒ ëª©ë¡ : ";
+	std::cout << "Àç»ı ¸ñ·Ï : ";
 	pl.loopOnce();
 
 	playlist pl2 = pl;
 	pl2.erase(2);
 	pl2.insert(3);
-	std::cout << "ë‘ ë²ˆì§¸ ì¬ìƒ ëª©ë¡ : ";
+	std::cout << "µÎ ¹øÂ° Àç»ı ¸ñ·Ï : ";
 	pl2.loopOnce();
+	pl.loopOnce();
 }
