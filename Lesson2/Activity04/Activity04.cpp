@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 
@@ -22,16 +22,16 @@ public:
 	file_system()
 	{
 		root = new node {"/", true, {}};
-		cwd = root; // ì²˜ìŒì—ëŠ” ë£¨íŠ¸ë¥¼ í˜„ì¬ ë””ë ‰í† ë¦¬ë¡œ ì„¤ì •
+		cwd = root; // Ã³À½¿¡´Â ·çÆ®¸¦ ÇöÀç µğ·ºÅä¸®·Î ¼³Á¤
 	}
 
 	node_ptr find(const std::string& path)
 	{
-		if (path[0] == '/') // ì ˆëŒ€ ê²½ë¡œ
+		if (path[0] == '/') // Àı´ë °æ·Î
 		{
 			return find_impl(root, path.substr(1));
 		}
-		else // ìƒëŒ€ ê²½ë¡œ
+		else // »ó´ë °æ·Î
 		{
 			return find_impl(cwd, path);
 		}
@@ -74,13 +74,13 @@ private:
 	{
 		if (not directory->is_dir)
 		{
-			std::cout << directory->name << "ì€(ëŠ”) íŒŒì¼ì…ë‹ˆë‹¤." << std::endl;
+			std::cout << directory->name << "Àº(´Â) ÆÄÀÏÀÔ´Ï´Ù." << std::endl;
 			return false;
 		}
 
 		auto sep = path.find('/');
 
-		// pathì— '/'ê°€ ì—†ëŠ” ê²½ìš°
+		// path¿¡ '/'°¡ ¾ø´Â °æ¿ì
 		if (sep == std::string::npos)
 		{
 			auto found = std::find_if(directory->children.begin(), directory->children.end(), [&](const node_ptr child) {
@@ -89,7 +89,7 @@ private:
 
 			if (found != directory->children.end())
 			{
-				std::cout << directory->name << "ì— ì´ë¯¸ " << path << " ì´ë¦„ì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ê°€ ìˆìŠµë‹ˆë‹¤." << std::endl;
+				std::cout << directory->name << "¿¡ ÀÌ¹Ì " << path << " ÀÌ¸§ÀÇ ÆÄÀÏ/µğ·ºÅä¸®°¡ ÀÖ½À´Ï´Ù." << std::endl;
 				return false;
 			}
 
@@ -97,7 +97,7 @@ private:
 			return true;
 		}
 
-		// pathì— '/'ê°€ ìˆëŠ” ê²½ìš°, ì¦‰, ë””ë ‰í† ë¦¬ ì´ë¦„ì„ í¬í•¨í•˜ê³  ìˆëŠ” ê²½ìš°.
+		// path¿¡ '/'°¡ ÀÖ´Â °æ¿ì, Áï, µğ·ºÅä¸® ÀÌ¸§À» Æ÷ÇÔÇÏ°í ÀÖ´Â °æ¿ì.
 		std::string next_dir = path.substr(0, sep);
 		auto found = std::find_if(directory->children.begin(), directory->children.end(), [&](const node_ptr child) {
 			return child->name == next_dir && child->is_dir;
@@ -108,8 +108,8 @@ private:
 			return add_impl(*found, path.substr(sep + 1), is_dir);
 		}
 
-		// pathì— ë””ë ‰í† ë¦¬ ì´ë¦„ì´ í¬í•¨ë˜ì–´ ìˆì§€ë§Œ, í•´ë‹¹ ë””ë ‰í† ë¦¬ê°€ ì—†ëŠ” ê²½ìš°.
-		std::cout << directory->name << "ì— " << next_dir << " ì´ë¦„ì˜ ë””ë ‰í† ë¦¬ê°€ ì—†ìŠµë‹ˆë‹¤." << std::endl;
+		// path¿¡ µğ·ºÅä¸® ÀÌ¸§ÀÌ Æ÷ÇÔµÇ¾î ÀÖÁö¸¸, ÇØ´ç µğ·ºÅä¸®°¡ ¾ø´Â °æ¿ì.
+		std::cout << directory->name << "¿¡ " << next_dir << " ÀÌ¸§ÀÇ µğ·ºÅä¸®°¡ ¾ø½À´Ï´Ù." << std::endl;
 		return false;
 	}
 
@@ -120,11 +120,11 @@ public:
 		if (found && found->is_dir)
 		{
 			cwd = found;
-			std::cout << "í˜„ì¬ ë””ë ‰í† ë¦¬ë¥¼ " << cwd->name << "ë¡œ ì´ë™í•©ë‹ˆë‹¤." << std::endl;
+			std::cout << "ÇöÀç µğ·ºÅä¸®¸¦ " << cwd->name << "·Î ÀÌµ¿ÇÕ´Ï´Ù." << std::endl;
 			return true;
 		}
 
-		std::cout << path << " ê²½ë¡œë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << path << " °æ·Î¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù." << std::endl;
 		return false;
 	}
 
@@ -134,7 +134,7 @@ public:
 		auto found = find(path);
 		if (not found)
 		{
-			std::cout << path << " ê²½ë¡œê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << path << " °æ·Î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù." << std::endl;
 			return;
 		}
 
@@ -155,13 +155,13 @@ public:
 int main()
 {
 	file_system fs;
-	fs.add("usr", true);       // "/"ì— usr ë””ë ‰í† ë¦¬ ì¶”ê°€
-	fs.add("etc", true);       // "/"ì— etc ë””ë ‰í† ë¦¬ ì¶”ê°€
-	fs.add("var", true);       // "/"ì— var ë””ë ‰í† ë¦¬ ì¶”ê°€
-	fs.add("tmp_file", false); // "/"ì— tmp_file íŒŒì¼ ì¶”ê°€
+	fs.add("usr", true);       // "/"¿¡ usr µğ·ºÅä¸® Ãß°¡
+	fs.add("etc", true);       // "/"¿¡ etc µğ·ºÅä¸® Ãß°¡
+	fs.add("var", true);       // "/"¿¡ var µğ·ºÅä¸® Ãß°¡
+	fs.add("tmp_file", false); // "/"¿¡ tmp_file ÆÄÀÏ Ãß°¡
 
-	std::cout << "\"/\"ì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ ëª©ë¡:" << std::endl;
-	fs.show_path("/");        // "/"ì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ ëª©ë¡ ì¶œë ¥
+	std::cout << "\"/\"ÀÇ ÆÄÀÏ/µğ·ºÅä¸® ¸ñ·Ï:" << std::endl;
+	fs.show_path("/");        // "/"ÀÇ ÆÄÀÏ/µğ·ºÅä¸® ¸ñ·Ï Ãâ·Â
 
 	std::cout << std::endl;
 	fs.change_dir("usr");
@@ -169,12 +169,12 @@ int main()
 	fs.add("gilbut/Downloads", true);
 	fs.add("gilbut/Downloads/newFile.cpp", false);
 
-	std::cout << "í˜„ì¬ ë””ë ‰í† ë¦¬ì—ì„œ usrì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ ëª©ë¡: " << std::endl;
-	fs.show_path("usr"); // í˜„ì¬ ë””ë ‰í† ë¦¬ì—ëŠ” usr ë””ë ‰í† ë¦¬ê°€ ì—†ìœ¼ë¯€ë¡œ ì •ìƒì ìœ¼ë¡œ ì¶œë ¥í•˜ì§€ ëª»í•©ë‹ˆë‹¤.
+	std::cout << "ÇöÀç µğ·ºÅä¸®¿¡¼­ usrÀÇ ÆÄÀÏ/µğ·ºÅä¸® ¸ñ·Ï: " << std::endl;
+	fs.show_path("usr"); // ÇöÀç µğ·ºÅä¸®¿¡´Â usr µğ·ºÅä¸®°¡ ¾øÀ¸¹Ç·Î Á¤»óÀûÀ¸·Î Ãâ·ÂÇÏÁö ¸øÇÕ´Ï´Ù.
 
-	std::cout << "\"/usr\"ì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ ëª©ë¡:" << std::endl;
+	std::cout << "\"/usr\"ÀÇ ÆÄÀÏ/µğ·ºÅä¸® ¸ñ·Ï:" << std::endl;
 	fs.show_path("/usr");
 
-	std::cout << "\"/usr/gilbut/Downloads\"ì˜ íŒŒì¼/ë””ë ‰í† ë¦¬ ëª©ë¡" << std::endl;
+	std::cout << "\"/usr/gilbut/Downloads\"ÀÇ ÆÄÀÏ/µğ·ºÅä¸® ¸ñ·Ï" << std::endl;
 	fs.show_path("/usr/gilbut/Downloads");
 }

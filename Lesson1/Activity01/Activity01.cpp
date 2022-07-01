@@ -201,7 +201,7 @@ struct playlist
 
 int main()
 {
-	playlist pl;
+	playlist pl; 
 	pl.insert(1);
 	pl.insert(2);
 	std::cout << "재생 목록 : ";

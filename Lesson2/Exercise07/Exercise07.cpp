@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <queue>
 
 struct node
@@ -41,13 +41,13 @@ struct org_tree
 
 		if (!managerNode)
 		{
-			std::cout << manager << "ì„(ë¥¼) ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: " << std::endl;
+			std::cout << manager << "À»(¸¦) Ã£À» ¼ö ¾ø½À´Ï´Ù: " << std::endl;
 			return false;
 		}
 
 		if (managerNode->first && managerNode->second)
 		{
-			std::cout << manager << " ì•„ëž˜ì— " << subordinate << "ë¥¼ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << manager << " ¾Æ·¡¿¡ " << subordinate << "¸¦ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù." << std::endl;
 			return false;
 		}
 
@@ -56,7 +56,7 @@ struct org_tree
 		else
 			managerNode->second = new node {subordinate, NULL, NULL};
 
-		std::cout << manager << " ì•„ëž˜ì— " << subordinate << "ë¥¼ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << manager << " ¾Æ·¡¿¡ " << subordinate << "¸¦ Ãß°¡Çß½À´Ï´Ù." << std::endl;
 
 		return true;
 	}
@@ -65,13 +65,12 @@ struct org_tree
 int main()
 {
 	auto tree = org_tree::create_org_structure("CEO");
-
-	tree.addSubordinate("CEO", "ë¶€ì‚¬ìž¥");
-	tree.addSubordinate("ë¶€ì‚¬ìž¥", "ITë¶€ìž¥");
-	tree.addSubordinate("ë¶€ì‚¬ìž¥", "ë§ˆì¼€íŒ…ë¶€ìž¥");
-	tree.addSubordinate("ITë¶€ìž¥", "ë³´ì•ˆíŒ€ìž¥");
-	tree.addSubordinate("ITë¶€ìž¥", "ì•±ê°œë°œíŒ€ìž¥");
-	tree.addSubordinate("ë§ˆì¼€íŒ…ë¶€ìž¥", "ë¬¼ë¥˜íŒ€ìž¥");
-	tree.addSubordinate("ë§ˆì¼€íŒ…ë¶€ìž¥", "í™ë³´íŒ€ìž¥");
-	tree.addSubordinate("ë¶€ì‚¬ìž¥", "ìž¬ë¬´ë¶€ìž¥");
+	tree.addSubordinate("CEO", "ºÎ»çÀå");
+	tree.addSubordinate("ºÎ»çÀå", "ITºÎÀå");
+	tree.addSubordinate("ºÎ»çÀå", "¸¶ÄÉÆÃºÎÀå");
+	tree.addSubordinate("ITºÎÀå", "º¸¾ÈÆÀÀå");
+	tree.addSubordinate("ITºÎÀå", "¾Û°³¹ßÆÀÀå");
+	tree.addSubordinate("¸¶ÄÉÆÃºÎÀå", "¹°·ùÆÀÀå");
+	tree.addSubordinate("¸¶ÄÉÆÃºÎÀå", "È«º¸ÆÀÀå");
+	tree.addSubordinate("ºÎ»çÀå", "Àç¹«ºÎÀå");
 }

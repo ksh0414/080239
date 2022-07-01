@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 
 struct node
 {
@@ -27,18 +27,18 @@ private:
 
 		if (current->data == value)
 		{
-			std::cout << value << "ì„(ë¥¼) ì°¾ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << value << "À»(¸¦) Ã£¾Ò½À´Ï´Ù." << std::endl;
 			return current;
 		}
 
-		if (value < current->data) // value ê°’ì´ í˜„ì¬ ë…¸ë“œ ì™¼ìª½ì— ìˆëŠ” ê²½ìš°
+		if (value < current->data) // value °ªÀÌ ÇöÀç ³ëµå ¿ŞÂÊ¿¡ ÀÖ´Â °æ¿ì
 		{
-			std::cout << current->data << "ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ì´ë™: ";
+			std::cout << current->data << "¿¡¼­ ¿ŞÂÊÀ¸·Î ÀÌµ¿: ";
 			return find_impl(current->left, value);
 		}
 
-		// value ê°’ì´ í˜„ì¬ ë…¸ë“œ ì˜¤ë¥¸ìª½ì— ìˆëŠ” ê²½ìš°
-		std::cout << current->data << "ì—ì„œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™: ";
+		// value °ªÀÌ ÇöÀç ³ëµå ¿À¸¥ÂÊ¿¡ ÀÖ´Â °æ¿ì
+		std::cout << current->data << "¿¡¼­ ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿: ";
 		return find_impl(current->right, value);
 	}
 
@@ -82,9 +82,9 @@ private:
 		if (!start)
 			return;
 
-		inorder_impl(start->left);			// ì™¼ìª½ í•˜ìœ„ íŠ¸ë¦¬ ë°©ë¬¸
-		std::cout << start->data << " ";	// í˜„ì¬ ë…¸ë“œ ì¶œë ¥
-		inorder_impl(start->right);			// ì˜¤ë¥¸ìª½ í•˜ìœ„ íŠ¸ë¦¬ ë°©ë¬¸
+		inorder_impl(start->left);			// ¿ŞÂÊ ÇÏÀ§ Æ®¸® ¹æ¹®
+		std::cout << start->data << " ";	// ÇöÀç ³ëµå Ãâ·Â
+		inorder_impl(start->right);			// ¿À¸¥ÂÊ ÇÏÀ§ Æ®¸® ¹æ¹®
 	}
 
 public:
@@ -113,25 +113,25 @@ private:
 			start->right = delete_impl(start->right, value);
 		else
 		{
-			if (!start->left) // ìì‹ ë…¸ë“œê°€ ì „í˜€ ì—†ê±°ë‚˜, ì™¼ìª½ ìì‹ ë…¸ë“œë§Œ ì—†ëŠ” ê²½ìš°
+			if (!start->left) // ÀÚ½Ä ³ëµå°¡ ÀüÇô ¾ø°Å³ª, ¿ŞÂÊ ÀÚ½Ä ³ëµå¸¸ ¾ø´Â °æ¿ì
 			{
 				auto tmp = start->right;
 				delete start;
 				return tmp;
 			}
 
-			if (!start->right) // ì˜¤ë¥¸ìª½ ìì‹ ë…¸ë“œë§Œ ì—†ëŠ” ê²½ìš°
+			if (!start->right) // ¿À¸¥ÂÊ ÀÚ½Ä ³ëµå¸¸ ¾ø´Â °æ¿ì
 			{
 				auto tmp = start->left;
 				delete start;
 				return tmp;
 			}
 
-			// ìì‹ ë…¸ë“œê°€ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+			// ÀÚ½Ä ³ëµå°¡ µÑ ´Ù ÀÖ´Â °æ¿ì
 			auto succNode = successor(start);
 			start->data = succNode->data;
 
-			// ì˜¤ë¥¸ìª½ í•˜ìœ„ íŠ¸ë¦¬ì—ì„œ í›„ê³„ì(successor)ë¥¼ ì°¾ì•„ ì‚­ì œ
+			// ¿À¸¥ÂÊ ÇÏÀ§ Æ®¸®¿¡¼­ ÈÄ°èÀÚ(successor)¸¦ Ã£¾Æ »èÁ¦
 			start->right = delete_impl(start->right, succNode->data);
 		}
 
@@ -152,17 +152,17 @@ int main()
 	tree.insert(4);
 	tree.insert(2);
 
-	std::cout << "ì¤‘ìœ„ ìˆœíšŒ: ";
-	tree.inorder(); // BSTì˜ ëª¨ë“  ì›ì†Œë¥¼ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì¶œë ¥í•©ë‹ˆë‹¤.
+	std::cout << "ÁßÀ§ ¼øÈ¸: ";
+	tree.inorder(); // BSTÀÇ ¸ğµç ¿ø¼Ò¸¦ ¿À¸§Â÷¼øÀ¸·Î Ãâ·ÂÇÕ´Ï´Ù.
 	std::cout << std::endl;
 
 	tree.deleteValue(12);
-	std::cout << "12ë¥¼ ì‚­ì œí•œ í›„ ì¤‘ìœ„ ìˆœíšŒ: ";
-	tree.inorder(); // BSTì˜ ëª¨ë“  ì›ì†Œë¥¼ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì¶œë ¥í•©ë‹ˆë‹¤.
+	std::cout << "12¸¦ »èÁ¦ÇÑ ÈÄ ÁßÀ§ ¼øÈ¸: ";
+	tree.inorder(); // BSTÀÇ ¸ğµç ¿ø¼Ò¸¦ ¿À¸§Â÷¼øÀ¸·Î Ãâ·ÂÇÕ´Ï´Ù.
 	std::cout << std::endl;
 	
 	if (tree.find(12))
-		std::cout << "ì›ì†Œ 12ëŠ” íŠ¸ë¦¬ì— ìˆìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << "¿ø¼Ò 12´Â Æ®¸®¿¡ ÀÖ½À´Ï´Ù." << std::endl;
 	else
-		std::cout << "ì›ì†Œ 12ëŠ” íŠ¸ë¦¬ì— ì—†ìŠµë‹ˆë‹¤." << std::endl;
+		std::cout << "¿ø¼Ò 12´Â Æ®¸®¿¡ ¾ø½À´Ï´Ù." << std::endl;
 }

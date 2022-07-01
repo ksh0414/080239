@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <array>
 #include <sstream>
@@ -28,9 +28,6 @@ struct card
 		{
 			switch (number)
 			{
-			case 1:
-				os << "Ace";
-				break;
 			case 11:
 				os << "Jack";
 				break;
@@ -165,6 +162,7 @@ struct game
 			return 3;
 		if (player4.empty())
 			return 4;
+		return 0;
 	}
 };
 
@@ -175,5 +173,5 @@ int main()
 	newGame.dealCards();
 	newGame.playGame();
 	auto winner = newGame.getWinner();
-	std::cout << winner << "ë²ˆ í”Œë ˆì´ì–´ê°€ ì´ê²¼ìŠµë‹ˆë‹¤!" << std::endl;
+	std::cout << winner << "¹ø ÇÃ·¹ÀÌ¾î°¡ ÀÌ°å½À´Ï´Ù!" << std::endl;
 }

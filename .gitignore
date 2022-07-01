@@ -1,0 +1,10 @@
+*.exe
+*.log
+*.json
+*.txt
+*.cmake
+*.obj
+*.h
+*.ninja
+*.bin
+*.check_cache
