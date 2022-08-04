@@ -1,4 +1,4 @@
-ï»¿#include <vector>
+#include <vector>
 #include <iostream>
 #include <climits>
 #include <iomanip>
@@ -54,7 +54,7 @@ struct Graph
 
 		while (e)
 		{
-			// ì—ì§€ ì •ë³´ ìƒì„±
+			// ¿¡Áö Á¤º¸ »ı¼º
 			int u = rand() % V;
 			int v = rand() % V;
 			int w = rand() % 100;
@@ -64,11 +64,11 @@ struct Graph
 				w = -w;
 			}
 
-			// ìœ íš¨í•œ ì—ì§€ì¸ì§€ í™•ì¸
+			// À¯È¿ÇÑ ¿¡ÁöÀÎÁö È®ÀÎ
 			if (u == v || used[u][v])
 				continue;
 
-			// ì—ì§€ ì •ë³´ë¥¼ ì¶”ê°€í•˜ê³  used ë°°ì—´ ê°’ì„ ì„¤ì •
+			// ¿¡Áö Á¤º¸¸¦ Ãß°¡ÇÏ°í used ¹è¿­ °ªÀ» ¼³Á¤
 			edges.push_back(Edge {u, v, w});
 			adj[u].push_back(v);
 			weight[u][v] = w;
@@ -80,7 +80,7 @@ struct Graph
 
 		for (int i = 0; i < V; i++)
 		{
-			// ìœ íš¨í•˜ì§€ ì•Šì€ ê·¸ë˜í”„ì— ëŒ€í•´ V ê°’ì„ -1ë¡œ ì„¤ì •
+			// À¯È¿ÇÏÁö ¾ÊÀº ±×·¡ÇÁ¿¡ ´ëÇØ V °ªÀ» -1·Î ¼³Á¤
 			if (!used[i][i])
 			{
 				V = -1;
@@ -103,7 +103,7 @@ vector<int> BellmanFord(Graph G)
 
 	distance[s] = 0;
 
-	// ì •ì  ê°œìˆ˜ê°€ V + 1ê°œ ì´ë¯€ë¡œ Vë²ˆ ë°˜ë³µ
+	// Á¤Á¡ °³¼ö°¡ V + 1°³ ÀÌ¹Ç·Î V¹ø ¹İº¹
 	for (int i = 0; i <= G.V; i++)
 	{
 		for (auto& e : G.edges)
@@ -192,12 +192,16 @@ RESULT TestGraph(Graph G)
 	for (int i = 0; i < G.V; i++)
 	{
 		vector<int> shortest = Dijkstra(i, G);
+		//for(auto& e : shortest)
+            //std::cout << e << " ";
+		//std::cout << std::endl;
 
 		double average = 0;
 		int count = 0;
 
 		for (int j = 0; j < G.V; j++)
 		{
+			//std::cout << "(" << i << ", " << j << "): " << shortest[j] << " ";
 			if (i == j || shortest[j] == UNKNOWN)
 				continue;
 
@@ -205,7 +209,7 @@ RESULT TestGraph(Graph G)
 			average += shortest[j];
 			count++;
 		}
-
+		//std::cout << average << " " << count << " " << average / count << std::endl;
 		average = average / count;
 		result += average;
 	}
@@ -239,9 +243,10 @@ int main()
 		switch (TestGraph(G))
 		{
 		case INVALID: invalid++; break;
-		case VALID: valid++; break;
+		case VALID: valid++; std::cout << G.maxWeight << std::endl; break;
 		case INTERESTING:
 		{
+			std::cout << G.maxWeight << std::endl;
 			valid++;
 			interesting++;
 			break;
@@ -251,18 +256,18 @@ int main()
 
 	double percentInteresting = (double)interesting / valid * 100;
 
-	cout << "ìœ íš¨í•˜ì§€ ì•Šì€ ê·¸ë˜í”„ ê°œìˆ˜: " << invalid << endl;
-	cout << "í¥ë¯¸ë¡œìš´ ê·¸ë˜í”„ ìƒì„± ë¹„ìœ¨: " << fixed << setprecision(2) << percentInteresting << "%" << endl;
+	cout << "À¯È¿ÇÏÁö ¾ÊÀº ±×·¡ÇÁ °³¼ö: " << invalid << endl;
+	cout << "Èï¹Ì·Î¿î ±×·¡ÇÁ »ı¼º ºñÀ²: " << fixed << setprecision(2) << percentInteresting << "%" << endl;
 
 	return 0;
 }
 
 /*
 42 1000 15 10
-ìœ íš¨í•˜ì§€ ì•Šì€ ê·¸ë˜í”„ ê°œìˆ˜: 996
-í¥ë¯¸ë¡œìš´ ê·¸ë˜í”„ ìƒì„± ë¹„ìœ¨: 0.00%
+À¯È¿ÇÏÁö ¾ÊÀº ±×·¡ÇÁ °³¼ö: 996
+Èï¹Ì·Î¿î ±×·¡ÇÁ »ı¼º ºñÀ²: 0.00%
 
 11111 400 5 5
-ìœ íš¨í•˜ì§€ ì•Šì€ ê·¸ë˜í”„ ê°œìˆ˜: 55
-í¥ë¯¸ë¡œìš´ ê·¸ë˜í”„ ìƒì„± ë¹„ìœ¨: 0.58%
+À¯È¿ÇÏÁö ¾ÊÀº ±×·¡ÇÁ °³¼ö: 55
+Èï¹Ì·Î¿î ±×·¡ÇÁ »ı¼º ºñÀ²: 0.58%
 */

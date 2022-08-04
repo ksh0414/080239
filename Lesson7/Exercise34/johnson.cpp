@@ -1,4 +1,4 @@
-ï»¿#include <vector>
+#include <vector>
 #include <iostream>
 #include <climits>
 
@@ -39,17 +39,17 @@ vector<int> BellmanFord(vector<Edge> edges, int V)
 
 	distance[s] = 0;
 
-	// ì •ì  ê°œìˆ˜ê°€ V + 1ê°œ ì´ë¯€ë¡œ Vë²ˆ ë°˜ë³µ
+	// Á¤Á¡ °³¼ö°¡ V + 1°³ ÀÌ¹Ç·Î V¹ø ¹İº¹
 	for (int i = 0; i < V; i++)
 	{
 		for (auto& e : edges)
 		{
-			// ì—ì§€ì˜ ì‹œì‘ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ UNKNOWNì´ë©´ ìŠ¤í‚µ
+			// ¿¡ÁöÀÇ ½ÃÀÛ Á¤Á¡ÀÇ °Å¸® °ªÀÌ UNKNOWNÀÌ¸é ½ºÅµ
 			if (distance[e.src] == UNKNOWN)
 				continue;
 
-			// ì¸ì ‘í•œ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ ìƒˆë¡œìš´ ê²½ë¡œì— ì˜í•œ ê±°ë¦¬ ê°’ë³´ë‹¤ í¬ë©´
-			// ê±°ë¦¬ ê°’ì„ ì—…ë°ì´íŠ¸í•¨.
+			// ÀÎÁ¢ÇÑ Á¤Á¡ÀÇ °Å¸® °ªÀÌ »õ·Î¿î °æ·Î¿¡ ÀÇÇÑ °Å¸® °ªº¸´Ù Å©¸é
+			// °Å¸® °ªÀ» ¾÷µ¥ÀÌÆ®ÇÔ.
 			if (distance[e.dst] > distance[e.src] + e.weight)
 			{
 				distance[e.dst] = distance[e.src] + e.weight;
@@ -57,10 +57,10 @@ vector<int> BellmanFord(vector<Edge> edges, int V)
 		}
 	}
 
-	// ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ì´ ìˆëŠ” ì§€ ê²€ì‚¬
+	// À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ÀÌ ÀÖ´Â Áö °Ë»ç
 	if (HasNegativeCycle(edges, distance))
 	{
-		cout << "ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ ë°œê²¬!" << endl;
+		cout << "À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ ¹ß°ß!" << endl;
 		return {};
 	}
 
@@ -93,18 +93,18 @@ vector<int> Dijkstra(vector<Edge> edges, int V, int start)
 
 	for (int i = 0; i < V - 1; i++)
 	{
-		// ë°©ë¬¸í•˜ì§€ ì•Šì€ ì •ì  ì¤‘ì—ì„œ ìµœì†Œ ê±°ë¦¬ ì •ì ì„ ì°¾ìŒ
+		// ¹æ¹®ÇÏÁö ¾ÊÀº Á¤Á¡ Áß¿¡¼­ ÃÖ¼Ò °Å¸® Á¤Á¡À» Ã£À½
 		int curr = GetMinDistance(distance, visited);
 
 		visited[curr] = true;
 
 		for (auto& e : edges)
 		{
-			// ì¸ì ‘í•œ ì •ì ë§Œ ê³ ë ¤
+			// ÀÎÁ¢ÇÑ Á¤Á¡¸¸ °í·Á
 			if (e.src != curr)
 				continue;
 
-			// ì´ë¯¸ ë°©ë¬¸í–ˆìœ¼ë©´ ë¬´ì‹œ
+			// ÀÌ¹Ì ¹æ¹®ÇßÀ¸¸é ¹«½Ã
 			if (visited[e.dst])
 				continue;
 
@@ -121,19 +121,19 @@ vector<int> Dijkstra(vector<Edge> edges, int V, int start)
 
 void Johnson(vector<Edge> edges, int V)
 {
-	// ë”ë¯¸ ì •ì ì„ ì¶”ê°€í•œ ê·¸ë˜í”„ì—ì„œ ìµœë‹¨ ê±°ë¦¬ë¥¼ ê³„ì‚°
+	// ´õ¹Ì Á¤Á¡À» Ãß°¡ÇÑ ±×·¡ÇÁ¿¡¼­ ÃÖ´Ü °Å¸®¸¦ °è»ê
 	vector<int> h = BellmanFord(edges, V);
 
 	if (h.empty())
 		return;
 
-	// ì—ì§€ ê°€ì¤‘ì¹˜ ì¬ì„¤ì •
+	// ¿¡Áö °¡ÁßÄ¡ Àç¼³Á¤
 	for (auto& e : edges)
 	{
 		e.weight += (h[e.src] - h[e.dst]);
 	}
 
-	// ëª¨ë“  ì •ì ë“¤ ì‚¬ì´ì˜ ìµœë‹¨ ê±°ë¦¬ë¥¼ ì €ì¥
+	// ¸ğµç Á¤Á¡µé »çÀÌÀÇ ÃÖ´Ü °Å¸®¸¦ ÀúÀå
 	vector<vector<int>> shortest(V);
 
 	for (int i = 0; i < V; i++)
@@ -141,7 +141,7 @@ void Johnson(vector<Edge> edges, int V)
 		shortest[i] = Dijkstra(edges, V, i);
 	}
 
-	// ê°€ì¤‘ì¹˜ ë³€í™˜ ìˆ˜ì‹ì„ ì—­ìœ¼ë¡œ ì ìš©í•˜ì—¬ ìµœë‹¨ ê±°ë¦¬ë¥¼ ì¶œë ¥
+	// °¡ÁßÄ¡ º¯È¯ ¼ö½ÄÀ» ¿ªÀ¸·Î Àû¿ëÇÏ¿© ÃÖ´Ü °Å¸®¸¦ Ãâ·Â
 	for (int i = 0; i < V; i++)
 	{
 		cout << i << ":\n";
@@ -160,10 +160,10 @@ void Johnson(vector<Edge> edges, int V)
 
 int main()
 {
-	int V = 5;              // ì •ì  ê°œìˆ˜
-	vector<Edge> edges;     // ì—ì§€ í¬ì¸í„°ì˜ ë²¡í„°
+	int V = 5;              // Á¤Á¡ °³¼ö
+	vector<Edge> edges;     // ¿¡Áö Æ÷ÀÎÅÍÀÇ º¤ÅÍ
 
-	vector<vector<int>> edge_map { // {ì‹œì‘ ì •ì , ëª©í‘œ ì •ì , ê°€ì¤‘ì¹˜}
+	vector<vector<int>> edge_map { // {½ÃÀÛ Á¤Á¡, ¸ñÇ¥ Á¤Á¡, °¡ÁßÄ¡}
 		{0, 1, -7},
 		{1, 2, -2},
 		{2, 0, 10},

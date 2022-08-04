@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 
 class hash_map
@@ -29,14 +29,14 @@ public:
 		auto hash_value1 = hash1(key);
 		if (data1[hash_value1] == key)
 		{
-			std::cout << "1ë²ˆ í…Œì´ë¸”ì—ì„œ " << key << "ì„(ë¥¼) ì°¾ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << "1¹ø Å×ÀÌºí¿¡¼­ " << key << "À»(¸¦) Ã£¾Ò½À´Ï´Ù." << std::endl;
 			return data1.begin() + hash_value1;
 		}
 
 		auto hash_value2 = hash2(key);
 		if (data2[hash_value2] == key)
 		{
-			std::cout << "2ë²ˆ í…Œì´ë¸”ì—ì„œ " << key << "ì„(ë¥¼) ì°¾ì•˜ìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << "2¹ø Å×ÀÌºí¿¡¼­ " << key << "À»(¸¦) Ã£¾Ò½À´Ï´Ù." << std::endl;
 			return data2.begin() + hash_value2;
 		}
 
@@ -49,11 +49,11 @@ public:
 		if (position != data2.end())
 		{
 			*position = -1;
-			std::cout << key << "ì— í•´ë‹¹í•˜ëŠ” ì›ì†Œë¥¼ ì‚­ì œí–ˆìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << key << "¿¡ ÇØ´çÇÏ´Â ¿ø¼Ò¸¦ »èÁ¦Çß½À´Ï´Ù." << std::endl;
 		}
 		else
 		{
-			std::cout << key << "í‚¤ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << key << "Å°¸¦ Ã£Áö ¸øÇß½À´Ï´Ù." << std::endl;
 		}
 	}
 
@@ -66,7 +66,7 @@ public:
 	{
 		if (cnt >= size)
 		{
-			std::cout << key << " ì‚½ì… ì‹œ ì‚¬ì´í´ ë°œìƒ! ì¬í•´ì‹±ì´ í•„ìš”í•©ë‹ˆë‹¤!" << std::endl;
+			std::cout << key << " »ğÀÔ ½Ã »çÀÌÅ¬ ¹ß»ı! ÀçÇØ½ÌÀÌ ÇÊ¿äÇÕ´Ï´Ù!" << std::endl;
 			return;
 		}
 
@@ -75,14 +75,14 @@ public:
 			int hash = hash1(key);
 			if (data1[hash] == -1)
 			{
-				std::cout << table << "ë²ˆ í…Œì´ë¸”ì— " << key << " ì‚½ì…" << std::endl;
+				std::cout << table << "¹ø Å×ÀÌºí¿¡ " << key << " »ğÀÔ" << std::endl;
 				data1[hash] = key;
 			}
 			else
 			{
 				int old = data1[hash];
 				data1[hash] = key;
-				std::cout << table << "ë²ˆ í…Œì´ë¸”ì— " << key << " ì‚½ì…: ê¸°ì¡´ì˜ " << old << " ì´ë™ -> ";
+				std::cout << table << "¹ø Å×ÀÌºí¿¡ " << key << " »ğÀÔ: ±âÁ¸ÀÇ " << old << " ÀÌµ¿ -> ";
 				insert_impl(old, cnt + 1, 2);
 			}
 		}
@@ -91,14 +91,14 @@ public:
 			int hash = hash2(key);
 			if (data2[hash] == -1)
 			{
-				std::cout << table << "ë²ˆ í…Œì´ë¸”ì— " << key << " ì‚½ì…" << std::endl;
+				std::cout << table << "¹ø Å×ÀÌºí¿¡ " << key << " »ğÀÔ" << std::endl;
 				data2[hash] = key;
 			}
 			else
 			{
 				int old = data2[hash];
 				data2[hash] = key;
-				std::cout << table << "ë²ˆ í…Œì´ë¸”ì— " << key << " ì‚½ì…: ê¸°ì¡´ì˜ " << old << " ì´ë™ -> ";
+				std::cout << table << "¹ø Å×ÀÌºí¿¡ " << key << " »ğÀÔ: ±âÁ¸ÀÇ " << old << " ÀÌµ¿ -> ";
 				insert_impl(old, cnt + 1, 1);
 			}
 		}
@@ -146,5 +146,5 @@ int main()
 	map.print();
 	std::cout << std::endl;
 
-	map.insert(14); // ì‚¬ì´í´ ë°œìƒ!
+	map.insert(14); // »çÀÌÅ¬ ¹ß»ı!
 }

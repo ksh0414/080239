@@ -1,4 +1,4 @@
-ï»¿#include <vector>
+#include <vector>
 #include <iostream>
 #include <climits>
 #include <fstream>
@@ -20,7 +20,7 @@ bool ReadTestCase(string filename, int& N, vector<Edge>& edges)
 
 	if (!infile.is_open())
 	{
-		cout << "í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!" << endl;
+		cout << "Å×½ºÆ® ÄÉÀÌ½º ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù!" << endl;
 		return false;
 	}
 
@@ -46,7 +46,7 @@ bool ReadTestCase(string filename, int& N, vector<Edge>& edges)
 			case 'W': next = i - 1; break;
 			}
 
-			// power ê°’ì˜ ë¶€í˜¸ë¥¼ ë°”ê¿”ì„œ ì—ì§€ ê°€ì¤‘ì¹˜ë¡œ ì‚¬ìš©
+			// power °ªÀÇ ºÎÈ£¸¦ ¹Ù²ã¼­ ¿¡Áö °¡ÁßÄ¡·Î »ç¿ë
 			edges.push_back(Edge {i, next, -power});
 		}
 	}
@@ -59,18 +59,18 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 	vector<int> distance(V, UNKNOWN);
 	distance[start] = 0;
 
-	// (V - 1)ë²ˆ ë°˜ë³µ
+	// (V - 1)¹ø ¹İº¹
 	for (int i = 0; i < V - 1; i++)
 	{
-		// ì „ì²´ ì—ì§€ì— ëŒ€í•´ ë°˜ë³µ
+		// ÀüÃ¼ ¿¡Áö¿¡ ´ëÇØ ¹İº¹
 		for (auto& e : edges)
 		{
-			// ì—ì§€ì˜ ì‹œì‘ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ UNKNOWNì´ë©´ ìŠ¤í‚µ
+			// ¿¡ÁöÀÇ ½ÃÀÛ Á¤Á¡ÀÇ °Å¸® °ªÀÌ UNKNOWNÀÌ¸é ½ºÅµ
 			if (distance[e.src] == UNKNOWN)
 				continue;
 
-			// ì¸ì ‘í•œ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ ìƒˆë¡œìš´ ê²½ë¡œì— ì˜í•œ ê±°ë¦¬ ê°’ë³´ë‹¤ í¬ë©´
-			// ê±°ë¦¬ ê°’ì„ ì—…ë°ì´íŠ¸í•¨.
+			// ÀÎÁ¢ÇÑ Á¤Á¡ÀÇ °Å¸® °ªÀÌ »õ·Î¿î °æ·Î¿¡ ÀÇÇÑ °Å¸® °ªº¸´Ù Å©¸é
+			// °Å¸® °ªÀ» ¾÷µ¥ÀÌÆ®ÇÔ.
 			if (distance[e.dst] > distance[e.src] + e.weight)
 			{
 				distance[e.dst] = distance[e.src] + e.weight;
@@ -78,7 +78,7 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 		}
 	}
 
-	// ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ì´ ìˆëŠ” ì§€ ê²€ì‚¬
+	// À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ÀÌ ÀÖ´Â Áö °Ë»ç
 	for (auto& e : edges)
 	{
 		if (distance[e.src] == UNKNOWN)
@@ -86,7 +86,7 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 
 		if (distance[e.dst] > distance[e.src] + e.weight)
 		{
-			//cout << "ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ ë°œê²¬!" << endl;
+			//cout << "À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ ¹ß°ß!" << endl;
 			return {};
 		}
 	}
@@ -97,15 +97,15 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 int main()
 {
 	int N;
-	vector<Edge> edges;     // ì—ì§€ ë¦¬ìŠ¤íŠ¸
+	vector<Edge> edges;     // ¿¡Áö ¸®½ºÆ®
 
-	// testcase1~5.txt íŒŒì¼ë¡œë¶€í„° í…ŒìŠ¤íŠ¸ ì…ë ¥ì„ ë°›ì•„ ê²°ê³¼ í™•ì¸
+	// testcase1~5.txt ÆÄÀÏ·ÎºÎÅÍ Å×½ºÆ® ÀÔ·ÂÀ» ¹Ş¾Æ °á°ú È®ÀÎ
 	if (ReadTestCase("testcase1.txt", N, edges))
 	{
 		vector<int> distance = BellmanFord(edges, N * N, 0);
 
 		if (distance.empty() || distance[N * N - 1] == UNKNOWN)
-			cout << "íƒìƒ‰ ì¤‘ë‹¨" << endl;
+			cout << "Å½»ö Áß´Ü" << endl;
 		else
 			cout << -1 * distance[N * N - 1] << endl;
 	}

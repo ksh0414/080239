@@ -1,4 +1,4 @@
-ï»¿#include <vector>
+#include <vector>
 #include <iostream>
 #include <climits>
 
@@ -18,18 +18,18 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 	vector<int> distance(V, UNKNOWN);
 	distance[start] = 0;
 
-	// (V - 1)ë²ˆ ë°˜ë³µ
+	// (V - 1)¹ø ¹İº¹
 	for (int i = 0; i < V - 1; i++)
 	{
-		// ì „ì²´ ì—ì§€ì— ëŒ€í•´ ë°˜ë³µ
+		// ÀüÃ¼ ¿¡Áö¿¡ ´ëÇØ ¹İº¹
 		for (auto& e : edges)
 		{
-			// ì—ì§€ì˜ ì‹œì‘ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ UNKNOWNì´ë©´ ìŠ¤í‚µ
+			// ¿¡ÁöÀÇ ½ÃÀÛ Á¤Á¡ÀÇ °Å¸® °ªÀÌ UNKNOWNÀÌ¸é ½ºÅµ
 			if (distance[e.src] == UNKNOWN)
 				continue;
 
-			// ì¸ì ‘í•œ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ ìƒˆë¡œìš´ ê²½ë¡œì— ì˜í•œ ê±°ë¦¬ ê°’ë³´ë‹¤ í¬ë©´
-			// ê±°ë¦¬ ê°’ì„ ì—…ë°ì´íŠ¸í•¨.
+			// ÀÎÁ¢ÇÑ Á¤Á¡ÀÇ °Å¸® °ªÀÌ »õ·Î¿î °æ·Î¿¡ ÀÇÇÑ °Å¸® °ªº¸´Ù Å©¸é
+			// °Å¸® °ªÀ» ¾÷µ¥ÀÌÆ®ÇÔ.
 			if (distance[e.dst] > distance[e.src] + e.weight)
 			{
 				distance[e.dst] = distance[e.src] + e.weight;
@@ -37,7 +37,7 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 		}
 	}
 
-	// ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ì´ ìˆëŠ” ì§€ ê²€ì‚¬
+	// À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ÀÌ ÀÖ´Â Áö °Ë»ç
 	for (auto& e : edges)
 	{
 		if (distance[e.src] == UNKNOWN)
@@ -45,7 +45,7 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 
 		if (distance[e.dst] > distance[e.src] + e.weight)
 		{
-			cout << "ìŒìˆ˜ ê°€ì¤‘ì¹˜ ì‚¬ì´í´ ë°œê²¬!" << endl;
+			cout << "À½¼ö °¡ÁßÄ¡ »çÀÌÅ¬ ¹ß°ß!" << endl;
 			return {};
 		}
 	}
@@ -55,10 +55,10 @@ vector<int> BellmanFord(vector<Edge> edges, int V, int start)
 
 int main()
 {
-	int V = 6;              // ì •ì  ê°œìˆ˜
-	vector<Edge> edges;     // ì—ì§€ í¬ì¸í„°ì˜ ë²¡í„°
+	int V = 6;              // Á¤Á¡ °³¼ö
+	vector<Edge> edges;     // ¿¡Áö Æ÷ÀÎÅÍÀÇ º¤ÅÍ
 
-	vector<vector<int>> edge_map { // {ì‹œì‘ ì •ì , ëª©í‘œ ì •ì , ê°€ì¤‘ì¹˜}
+	vector<vector<int>> edge_map { // {½ÃÀÛ Á¤Á¡, ¸ñÇ¥ Á¤Á¡, °¡ÁßÄ¡}
 		{0, 1, 3},
 		{1, 3, -8},
 		{2, 1, 3},
@@ -79,14 +79,14 @@ int main()
 
 	if (!distance.empty())
 	{
-		cout << "[" << start << "ë²ˆ ì •ì ìœ¼ë¡œë¶€í„° ìµœì†Œ ê±°ë¦¬]" << endl;
+		cout << "[" << start << "¹ø Á¤Á¡À¸·ÎºÎÅÍ ÃÖ¼Ò °Å¸®]" << endl;
 
 		for (int i = 0; i < distance.size(); i++)
 		{
 			if (distance[i] == UNKNOWN)
-				cout << i << "ë²ˆ ì •ì : ë°©ë¬¸í•˜ì§€ ì•ŠìŒ!" << endl;
+				cout << i << "¹ø Á¤Á¡: ¹æ¹®ÇÏÁö ¾ÊÀ½!" << endl;
 			else
-				cout << i << "ë²ˆ ì •ì : " << distance[i] << endl;
+				cout << i << "¹ø Á¤Á¡: " << distance[i] << endl;
 		}
 	}
 }

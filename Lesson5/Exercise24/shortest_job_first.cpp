@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -30,14 +30,14 @@ void compute_and_print_waiting_times(std::vector<T>& service_times)
 {
 	auto waiting_times = compute_waiting_times<int>(service_times);
 
-	std::cout << "- ì²˜ë¦¬ ì‹œê°„: ";
+	std::cout << "- Ã³¸® ½Ã°£: ";
 	print_vector<T>(service_times);
 
-	std::cout << "- ëŒ€ê¸° ì‹œê°„: ";
+	std::cout << "- ´ë±â ½Ã°£: ";
 	print_vector<T>(waiting_times);
 
 	auto ave_waiting_times = std::accumulate(waiting_times.begin(), waiting_times.end(), 0.0) / waiting_times.size();
-	std::cout << "- í‰ê·  ëŒ€ê¸° ì‹œê°„: " << ave_waiting_times;
+	std::cout << "- Æò±Õ ´ë±â ½Ã°£: " << ave_waiting_times;
 
 	std::cout << std::endl;
 }
@@ -46,13 +46,13 @@ int main(int argc, char* argv[])
 {
 	std::vector<int> service_times {8, 1, 2, 4, 9, 2, 3, 5};
 
-	std::cout << "[ì²˜ìŒ ì¼ ì²˜ë¦¬ ì‹œê°„ & ëŒ€ê¸° ì‹œê°„]" << std::endl;
+	std::cout << "[Ã³À½ ÀÏ Ã³¸® ½Ã°£ & ´ë±â ½Ã°£]" << std::endl;
 	compute_and_print_waiting_times<int>(service_times);
 
-	// ì¼ ì²˜ë¦¬ ì‹œê°„ì„ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬
+	// ÀÏ Ã³¸® ½Ã°£À» ¿À¸§Â÷¼øÀ¸·Î Á¤·Ä
 	std::sort(service_times.begin(), service_times.end());
 
 	std::cout << std::endl;
-	std::cout << "[ì •ë ¬ í›„ ì¼ ì²˜ë¦¬ ì‹œê°„ & ëŒ€ê¸° ì‹œê°„]" << std::endl;
+	std::cout << "[Á¤·Ä ÈÄ ÀÏ Ã³¸® ½Ã°£ & ´ë±â ½Ã°£]" << std::endl;
 	compute_and_print_waiting_times<int>(service_times);
 }

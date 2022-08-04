@@ -1,4 +1,4 @@
-ï»¿#include <vector>
+#include <vector>
 #include <iostream>
 #include <algorithm>
 #include <queue>
@@ -23,7 +23,7 @@ private:
 		}
 	};
 
-	// ë””ìŠ¤ì¡°ì¸íŠ¸-ì…‹ í¬ë ˆìŠ¤íŠ¸
+	// µğ½ºÁ¶ÀÎÆ®-¼Â Æ÷·¹½ºÆ®
 	vector<Node> nodes; 
 
 public:
@@ -56,11 +56,11 @@ public:
 		auto root_x = find(x);
 		auto root_y = find(y);
 
-		// ë§Œì•½ Xì™€ Yê°€ ê°™ì€ íŠ¸ë¦¬ì— ìˆë‹¤ë©´ ê·¸ëŒ€ë¡œ ì¢…ë£Œ
+		// ¸¸¾à X¿Í Y°¡ °°Àº Æ®¸®¿¡ ÀÖ´Ù¸é ±×´ë·Î Á¾·á
 		if (root_x == root_y)
 			return;
 
-		// ì‘ì€ ë­í¬ì˜ íŠ¸ë¦¬ë¥¼ í° ë­í¬ì˜ íŠ¸ë¦¬ ìª½ìœ¼ë¡œ ë³‘í•©
+		// ÀÛÀº ·©Å©ÀÇ Æ®¸®¸¦ Å« ·©Å©ÀÇ Æ®¸® ÂÊÀ¸·Î º´ÇÕ
 		if (nodes[root_x].rank > nodes[root_y].rank)
 			swap(root_x, root_y);
 
@@ -76,7 +76,7 @@ struct Edge
 	unsigned dst;
 	T weight;
 
-	// Edge ê°ì²´ ë¹„êµëŠ” ê°€ì¤‘ì¹˜ë¥¼ ì´ìš©
+	// Edge °´Ã¼ ºñ±³´Â °¡ÁßÄ¡¸¦ ÀÌ¿ë
 	inline bool operator< (const Edge<T>& e) const
 	{
 		return this->weight < e.weight;
@@ -92,16 +92,16 @@ template <typename T>
 class Graph
 {
 public:
-	// Nê°œì˜ ì •ì ìœ¼ë¡œ êµ¬ì„±ëœ ê·¸ë˜í”„
+	// N°³ÀÇ Á¤Á¡À¸·Î ±¸¼ºµÈ ±×·¡ÇÁ
 	Graph(unsigned N) : V(N) {}
 
-	// ê·¸ë˜í”„ì˜ ì •ì  ê°œìˆ˜ ë°˜í™˜
+	// ±×·¡ÇÁÀÇ Á¤Á¡ °³¼ö ¹İÈ¯
 	auto vertices() const { return V; }
 
-	// ì „ì²´ ì—ì§€ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
+	// ÀüÃ¼ ¿¡Áö ¸®½ºÆ® ¹İÈ¯
 	auto& edges() const { return edge_list; }
 
-	// ì •ì  vì—ì„œ ë‚˜ê°€ëŠ” ëª¨ë“  ì—ì§€ë¥¼ ë°˜í™˜
+	// Á¤Á¡ v¿¡¼­ ³ª°¡´Â ¸ğµç ¿¡Áö¸¦ ¹İÈ¯
 	auto edges(unsigned v) const
 	{
 		vector<Edge<T>> edges_from_v;
@@ -116,19 +116,19 @@ public:
 
 	void add_edge(Edge<T>&& e)
 	{
-		// ì—ì§€ ì–‘ ë ì •ì  IDê°€ ìœ íš¨í•œì§€ ê²€ì‚¬
+		// ¿¡Áö ¾ç ³¡ Á¤Á¡ ID°¡ À¯È¿ÇÑÁö °Ë»ç
 		if (e.src >= 1 && e.src <= V && e.dst >= 1 && e.dst <= V)
 			edge_list.emplace_back(e);
 		else
-			cerr << "ì—ëŸ¬: ìœ íš¨ ë²”ìœ„ë¥¼ ë²—ì–´ë‚œ ì •ì !" << endl;
+			cerr << "¿¡·¯: À¯È¿ ¹üÀ§¸¦ ¹ş¾î³­ Á¤Á¡!" << endl;
 	}
 
-	// í‘œì¤€ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ì§€ì›
+	// Ç¥ÁØ Ãâ·Â ½ºÆ®¸² Áö¿ø
 	template <typename U>
 	friend ostream& operator<< (ostream& os, const Graph<U>& G);
 
 private:
-	unsigned V;		// ì •ì  ê°œìˆ˜
+	unsigned V;		// Á¤Á¡ °³¼ö
 	vector<Edge<T>> edge_list;
 };
 
@@ -149,33 +149,33 @@ ostream& operator<< (ostream& os, const Graph<U>& G)
 	return os;
 }
 
-// íŠ¸ë¦¬ë„ ê·¸ë˜í”„ë¡œ í‘œí˜„í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ìµœì†Œ ì‹ ì¥ íŠ¸ë¦¬ë„ Graph ê°ì²´ë¡œ ë°˜í™˜í•©ë‹ˆë‹¤.
-// ë‹¤ë§Œ ì—¬ê¸°ì—ëŠ” ì‚¬ì´í´ì´ ìˆìœ¼ë©´ ì•ˆë©ë‹ˆë‹¤.
+// Æ®¸®µµ ±×·¡ÇÁ·Î Ç¥ÇöÇÒ ¼ö ÀÖÀ¸¹Ç·Î ÃÖ¼Ò ½ÅÀå Æ®¸®µµ Graph °´Ã¼·Î ¹İÈ¯ÇÕ´Ï´Ù.
+// ´Ù¸¸ ¿©±â¿¡´Â »çÀÌÅ¬ÀÌ ÀÖÀ¸¸é ¾ÈµË´Ï´Ù.
 template <typename T>
 Graph<T> minimum_spanning_tree(const Graph<T>& G)
 {
-	// ì—ì§€ ê°€ì¤‘ì¹˜ë¥¼ ì´ìš©í•œ ìµœì†Œ í™ êµ¬ì„±
+	// ¿¡Áö °¡ÁßÄ¡¸¦ ÀÌ¿ëÇÑ ÃÖ¼Ò Èü ±¸¼º
 	priority_queue<Edge<T>, vector<Edge<T>>, greater<Edge<T>>> edge_min_heap;
 
-	// ëª¨ë“  ì—ì§€ë¥¼ ìµœì†Œ í™ì— ì¶”ê°€
+	// ¸ğµç ¿¡Áö¸¦ ÃÖ¼Ò Èü¿¡ Ãß°¡
 	for (auto& e : G.edges())
 		edge_min_heap.push(e);
 
-	// ì •ì  ê°œìˆ˜ì— í•´ë‹¹í•˜ëŠ” í¬ê¸°ì˜ ë””ìŠ¤ì¡°ì¸íŠ¸-ì…‹ ìë£Œ êµ¬ì¡° ìƒì„± ë° ì´ˆê¸°í™”
+	// Á¤Á¡ °³¼ö¿¡ ÇØ´çÇÏ´Â Å©±âÀÇ µğ½ºÁ¶ÀÎÆ®-¼Â ÀÚ·á ±¸Á¶ »ı¼º ¹× ÃÊ±âÈ­
 	auto N = G.vertices();
 	SimpleDisjointSet dset(N);
 	for (unsigned i = 0; i < N; i++)
 		dset.make_set(i);
 
-	// ë””ìŠ¤ì¡°ì¸íŠ¸-ì…‹ ìë£Œ êµ¬ì¡°ë¥¼ ì´ìš©í•˜ì—¬ ìµœì†Œ ì‹ ì¥ íŠ¸ë¦¬ êµ¬í•˜ê¸°
+	// µğ½ºÁ¶ÀÎÆ®-¼Â ÀÚ·á ±¸Á¶¸¦ ÀÌ¿ëÇÏ¿© ÃÖ¼Ò ½ÅÀå Æ®¸® ±¸ÇÏ±â
 	Graph<T> MST(N);
 	while (!edge_min_heap.empty())
 	{
-		// ìµœì†Œ í™ì—ì„œ ìµœì†Œ ê°€ì¤‘ì¹˜ ì—ì§€ë¥¼ ì¶”ì¶œ
+		// ÃÖ¼Ò Èü¿¡¼­ ÃÖ¼Ò °¡ÁßÄ¡ ¿¡Áö¸¦ ÃßÃâ
 		auto e = edge_min_heap.top();
 		edge_min_heap.pop();
 
-		// ì„ íƒí•œ ì—ì§€ê°€ ì‚¬ì´í´ì„ ìƒì„±í•˜ì§€ ì•Šìœ¼ë©´ í•´ë‹¹ ì—ì§€ë¥¼ MSTì— ì¶”ê°€
+		// ¼±ÅÃÇÑ ¿¡Áö°¡ »çÀÌÅ¬À» »ı¼ºÇÏÁö ¾ÊÀ¸¸é ÇØ´ç ¿¡Áö¸¦ MST¿¡ Ãß°¡
 		if (dset.find(e.src) != dset.find(e.dst))
 		{
 			MST.add_edge(Edge <T>{e.src, e.dst, e.weight});
@@ -190,7 +190,7 @@ int main()
 {
 	using T = unsigned;
 
-	// ê·¸ë˜í”„ ê°ì²´ ìƒì„±
+	// ±×·¡ÇÁ °´Ã¼ »ı¼º
 	Graph<T> G(9);
 
 	map<unsigned, vector<pair<unsigned, T>>> edge_map;
@@ -207,10 +207,10 @@ int main()
 		for (auto& j : i.second)
 			G.add_edge(Edge<T>{ i.first, j.first, j.second });
 
-	cout << "[ì…ë ¥ ê·¸ë˜í”„]" << endl;
+	cout << "[ÀÔ·Â ±×·¡ÇÁ]" << endl;
 	cout << G << endl;
 
 	Graph<T> MST = minimum_spanning_tree(G);
-	cout << "[ìµœì†Œ ì‹ ì¥ íŠ¸ë¦¬]" << endl;
+	cout << "[ÃÖ¼Ò ½ÅÀå Æ®¸®]" << endl;
 	cout << MST;
 }

@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <chrono>
 #include <random>
@@ -7,25 +7,25 @@
 class Student
 {
 private:
-	std::pair<int, int> name;	// í•™ìƒ ID, <ì´ë¦„, ì„±>
-	bool vaccinated;			// ì˜ˆë°© ì ‘ì¢… ì—¬ë¶€
+	std::pair<int, int> name;	// ÇĞ»ı ID, <ÀÌ¸§, ¼º>
+	bool vaccinated;			// ¿¹¹æ Á¢Á¾ ¿©ºÎ
 
 public:
-	// ìƒì„±ì
+	// »ı¼ºÀÚ
 	Student(std::pair<int, int> n, bool v) :
 		name(n), vaccinated(v) {}
 
-	// ì •ë³´ ê²€ìƒ‰
+	// Á¤º¸ °Ë»ö
 	auto get_name() { return name; }
 	auto is_vaccinated() { return vaccinated; }
 
-	// ì´ë¦„ì´ ê°™ìœ¼ë©´ ê°™ì€ ì‚¬ëŒìœ¼ë¡œ ì·¨ê¸‰	
+	// ÀÌ¸§ÀÌ °°À¸¸é °°Àº »ç¶÷À¸·Î Ãë±Ş	
 	bool operator ==(const Student& p) const
 	{
 		return this->name == p.name;
 	}
 
-	// ì´ë¦„ì„ ì´ìš©í•˜ì—¬ ì •ë ¬í•˜ë„ë¡ ì„¤ì •
+	// ÀÌ¸§À» ÀÌ¿ëÇÏ¿© Á¤·ÄÇÏµµ·Ï ¼³Á¤
 	bool operator< (const Student& p) const
 	{
 		return this->name < p.name;
@@ -37,16 +37,16 @@ public:
 	}
 };
 
-// 1ë¶€í„° max ì‚¬ì´ì˜ IDë¥¼ ê°–ëŠ” ì„ì˜ì˜ í•™ìƒ ì •ë³´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
+// 1ºÎÅÍ max »çÀÌÀÇ ID¸¦ °®´Â ÀÓÀÇÀÇ ÇĞ»ı Á¤º¸¸¦ »ı¼ºÇÕ´Ï´Ù.
 auto generate_random_Student(int max)
 {
 	std::random_device rd;
 	std::mt19937 rand(rd());
 
-	// í•™ìƒ ID ë²”ìœ„ëŠ” [1, max]ë¡œ ì§€ì •
+	// ÇĞ»ı ID ¹üÀ§´Â [1, max]·Î ÁöÁ¤
 	std::uniform_int_distribution<std::mt19937::result_type> uniform_dist(1, max);
 
-	// ì„ì˜ì˜ í•™ìƒ ì •ë³´ ìƒì„±
+	// ÀÓÀÇÀÇ ÇĞ»ı Á¤º¸ »ı¼º
 	auto random_name = std::make_pair(uniform_dist(rand), uniform_dist(rand));
 	bool is_vaccinated = uniform_dist(rand) % 2 ? true : false;
 
@@ -64,10 +64,10 @@ bool needs_vaccination(Student P, std::vector<Student>& people)
 		auto mid_element_index = std::floor(range_length / 2);
 		auto mid_element = *(first + mid_element_index);
 
-		// ëª©ë¡ì— í•´ë‹¹ í•™ìƒì´ ìˆê³ , ì˜ˆë°© ì ‘ì¢…ì„ ë°›ì§€ ì•Šì•˜ë‹¤ë©´ trueë¥¼ ë°˜í™˜
+		// ¸ñ·Ï¿¡ ÇØ´ç ÇĞ»ıÀÌ ÀÖ°í, ¿¹¹æ Á¢Á¾À» ¹ŞÁö ¾Ê¾Ò´Ù¸é true¸¦ ¹İÈ¯
 		if (mid_element == P && mid_element.is_vaccinated() == false)
 			return true;
-		// ëª©ë¡ì— í•´ë‹¹ í•™ìƒì´ ìˆëŠ”ë° ì´ë¯¸ ì˜ˆë°© ì ‘ì¢…ì„ ë°›ì•˜ë‹¤ë©´ falseë¥¼ ë°˜í™˜
+		// ¸ñ·Ï¿¡ ÇØ´ç ÇĞ»ıÀÌ ÀÖ´Âµ¥ ÀÌ¹Ì ¿¹¹æ Á¢Á¾À» ¹Ş¾Ò´Ù¸é false¸¦ ¹İÈ¯
 		else if (mid_element == P && mid_element.is_vaccinated() == true)
 			return false;
 		else if (mid_element > P)
@@ -75,7 +75,7 @@ bool needs_vaccination(Student P, std::vector<Student>& people)
 		if (mid_element < P)
 			std::advance(first, mid_element_index);
 
-		// ëª©ë¡ì— í•´ë‹¹ í•™ìƒì´ ì—†ë‹¤ë©´ trueë¥¼ ë°˜í™˜
+		// ¸ñ·Ï¿¡ ÇØ´ç ÇĞ»ıÀÌ ¾ø´Ù¸é true¸¦ ¹İÈ¯
 		if (range_length == 1)
 			return true;
 	}
@@ -85,13 +85,13 @@ void search_test(int size, Student p)
 {
 	std::vector<Student> people;
 
-	// ì„ì˜ì˜ í•™ìƒ ì •ë³´ ëª©ë¡ ìƒì„±
+	// ÀÓÀÇÀÇ ÇĞ»ı Á¤º¸ ¸ñ·Ï »ı¼º
 	for (auto i = 0; i < size; i++)
 		people.push_back(generate_random_Student(size));
 
 	std::sort(people.begin(), people.end());
 
-	// ì´ì§„ ê²€ìƒ‰ ì‹¤í–‰ ë° ì‹œê°„ ì¸¡ì •
+	// ÀÌÁø °Ë»ö ½ÇÇà ¹× ½Ã°£ ÃøÁ¤
 	auto begin = std::chrono::steady_clock::now();
 
 	bool search_result = needs_vaccination(p, people);
@@ -99,20 +99,20 @@ void search_test(int size, Student p)
 	auto end = std::chrono::steady_clock::now();
 	auto diff = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
 
-	std::cout << "ì´ì§„ ê²€ìƒ‰ ì†Œìš” ì‹œê°„: " << diff.count() << "us" << std::endl;
+	std::cout << "ÀÌÁø °Ë»ö ¼Ò¿ä ½Ã°£: " << diff.count() << "us" << std::endl;
 
 	if (search_result)
 		std::cout << "(" << p.get_name().first << " " << p.get_name().second << ") "
-		<< "í•™ìƒì€ ì˜ˆë°© ì ‘ì¢…ì´ í•„ìš”í•©ë‹ˆë‹¤." << std::endl;
+		<< "ÇĞ»ıÀº ¿¹¹æ Á¢Á¾ÀÌ ÇÊ¿äÇÕ´Ï´Ù." << std::endl;
 	else
 		std::cout << "(" << p.get_name().first << " " << p.get_name().second << ") "
-		<< "í•™ìƒì€ ì˜ˆë°© ì ‘ì¢…ì´ í•„ìš”í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." << std::endl;
+		<< "ÇĞ»ıÀº ¿¹¹æ Á¢Á¾ÀÌ ÇÊ¿äÇÏÁö ¾Ê½À´Ï´Ù." << std::endl;
 }
 
 int main()
 {
-	// ì„ì˜ì˜ í•™ìƒ ì •ë³´ ìƒì„±
-	auto p = generate_random_Student(1000);
+	// ÀÓÀÇÀÇ ÇĞ»ı Á¤º¸ »ı¼º
+	auto p = generate_random_Student(1000); 
 
 	search_test(1000, p);
 	search_test(10000, p);

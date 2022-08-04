@@ -1,4 +1,4 @@
-ï»¿#include <string>
+#include <string>
 #include <vector>
 #include <iostream>
 #include <set>
@@ -20,16 +20,16 @@ template <typename T>
 class Graph
 {
 public:
-	// Nê°œì˜ ì •ì ìœ¼ë¡œ êµ¬ì„±ëœ ê·¸ë˜í”„
+	// N°³ÀÇ Á¤Á¡À¸·Î ±¸¼ºµÈ ±×·¡ÇÁ
 	Graph(unsigned N) : V(N) {}
 
-	// ê·¸ë˜í”„ì˜ ì •ì  ê°œìˆ˜ ë°˜í™˜
+	// ±×·¡ÇÁÀÇ Á¤Á¡ °³¼ö ¹İÈ¯
 	auto vertices() const { return V; }
 
-	// ì „ì²´ ì—ì§€ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
+	// ÀüÃ¼ ¿¡Áö ¸®½ºÆ® ¹İÈ¯
 	auto& edges() const { return edge_list; }
 
-	// ì •ì  vì—ì„œ ë‚˜ê°€ëŠ” ëª¨ë“  ì—ì§€ë¥¼ ë°˜í™˜
+	// Á¤Á¡ v¿¡¼­ ³ª°¡´Â ¸ğµç ¿¡Áö¸¦ ¹İÈ¯
 	auto edges(unsigned v) const
 	{
 		vector<Edge<T>> edges_from_v;
@@ -44,19 +44,19 @@ public:
 
 	void add_edge(Edge<T>&& e)
 	{
-		// ì—ì§€ ì–‘ ë ì •ì  IDê°€ ìœ íš¨í•œì§€ ê²€ì‚¬
+		// ¿¡Áö ¾ç ³¡ Á¤Á¡ ID°¡ À¯È¿ÇÑÁö °Ë»ç
 		if (e.src >= 1 && e.src <= V && e.dst >= 1 && e.dst <= V)
 			edge_list.emplace_back(e);
 		else
-			cerr << "ì—ëŸ¬: ìœ íš¨ ë²”ìœ„ë¥¼ ë²—ì–´ë‚œ ì •ì !" << endl;
+			cerr << "¿¡·¯: À¯È¿ ¹üÀ§¸¦ ¹ş¾î³­ Á¤Á¡!" << endl;
 	}
 
-	// í‘œì¤€ ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ ì§€ì›
+	// Ç¥ÁØ Ãâ·Â ½ºÆ®¸² Áö¿ø
 	template <typename U>
 	friend ostream& operator<< (ostream& os, const Graph<U>& G);
 
 private:
-	unsigned V;		// ì •ì  ê°œìˆ˜
+	unsigned V;		// Á¤Á¡ °³¼ö
 	vector<Edge<T>> edge_list;
 };
 
@@ -105,7 +105,7 @@ struct Label
 	unsigned ID;
 	T distance;
 
-	// Label ê°ì²´ ë¹„êµëŠ” ê±°ë¦¬(distance) ê°’ì„ ì´ìš©
+	// Label °´Ã¼ ºñ±³´Â °Å¸®(distance) °ªÀ» ÀÌ¿ë
 	inline bool operator> (const Label<T>& l) const
 	{
 		return this->distance > l.distance;
@@ -115,14 +115,14 @@ struct Label
 template <typename T>
 auto prim_MST(const Graph<T>& G, unsigned src)
 {
-	// ìµœì†Œ í™
+	// ÃÖ¼Ò Èü
 	priority_queue<Label<T>, vector<Label<T>>, greater<Label<T>>> heap;
 
-	// ëª¨ë“  ì •ì ì—ì„œ ê±°ë¦¬ ê°’ì„ ìµœëŒ€ë¡œ ì„¤ì •
+	// ¸ğµç Á¤Á¡¿¡¼­ °Å¸® °ªÀ» ÃÖ´ë·Î ¼³Á¤
 	vector<T> distance(G.vertices(), numeric_limits<T>::max());
 
-	set<unsigned> visited;	// ë°©ë¬¸í•œ ì •ì 
-	vector<unsigned> MST;	// ìµœì†Œ ì‹ ì¥ íŠ¸ë¦¬
+	set<unsigned> visited;	// ¹æ¹®ÇÑ Á¤Á¡
+	vector<unsigned> MST;	// ÃÖ¼Ò ½ÅÀå Æ®¸®
 
 	heap.emplace(Label<T>{src, 0});
 
@@ -131,7 +131,7 @@ auto prim_MST(const Graph<T>& G, unsigned src)
 		auto current_vertex = heap.top();
 		heap.pop();
 
-		// í˜„ì¬ ì •ì ì„ ì´ì „ì— ë°©ë¬¸í•˜ì§€ ì•Šì•˜ë‹¤ë©´
+		// ÇöÀç Á¤Á¡À» ÀÌÀü¿¡ ¹æ¹®ÇÏÁö ¾Ê¾Ò´Ù¸é
 		if (visited.find(current_vertex.ID) == visited.end())
 		{
 			MST.push_back(current_vertex.ID);
@@ -141,8 +141,8 @@ auto prim_MST(const Graph<T>& G, unsigned src)
 				auto neighbor = e.dst;
 				auto new_distance = e.weight;
 
-				// ì¸ì ‘í•œ ì •ì ì˜ ê±°ë¦¬ ê°’ì´ ìƒˆë¡œìš´ ê²½ë¡œì— ì˜í•œ ê±°ë¦¬ ê°’ë³´ë‹¤ í¬ë©´
-				// í™ì— ì¶”ê°€í•˜ê³ , ê±°ë¦¬ ê°’ì„ ì—…ë°ì´íŠ¸í•¨.
+				// ÀÎÁ¢ÇÑ Á¤Á¡ÀÇ °Å¸® °ªÀÌ »õ·Î¿î °æ·Î¿¡ ÀÇÇÑ °Å¸® °ªº¸´Ù Å©¸é
+				// Èü¿¡ Ãß°¡ÇÏ°í, °Å¸® °ªÀ» ¾÷µ¥ÀÌÆ®ÇÔ.
 				if (new_distance < distance[neighbor])
 				{
 					heap.emplace(Label<T>{neighbor, new_distance});
@@ -161,14 +161,14 @@ int main()
 {
 	using T = unsigned;
 
-	// ê·¸ë˜í”„ ê°ì²´ ìƒì„±
+	// ±×·¡ÇÁ °´Ã¼ »ı¼º
 	auto G = create_reference_graph<T>();
-	cout << "[ì…ë ¥ ê·¸ë˜í”„]" << endl;
+	cout << "[ÀÔ·Â ±×·¡ÇÁ]" << endl;
 	cout << G << endl;
 
 	auto MST = prim_MST<T>(G, 1);
 
-	cout << "[ìµœì†Œ ì‹ ì¥ íŠ¸ë¦¬]" << endl;
+	cout << "[ÃÖ¼Ò ½ÅÀå Æ®¸®]" << endl;
 	for (auto v : MST)
 		cout << v << endl;
 	cout << endl;

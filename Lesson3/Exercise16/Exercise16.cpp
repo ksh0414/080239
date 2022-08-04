@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -19,52 +19,52 @@ void print(const std::unordered_map<int, int>& container)
 void find(const std::unordered_set<int>& container, const int element)
 {
 	if (container.find(element) == container.end())
-		std::cout << element << " ê²€ìƒ‰: ì‹¤íŒ¨" << std::endl;
+		std::cout << element << " °Ë»ö: ½ÇÆÐ" << std::endl;
 	else
-		std::cout << element << " ê²€ìƒ‰: ì„±ê³µ" << std::endl;
+		std::cout << element << " °Ë»ö: ¼º°ø" << std::endl;
 }
 
 void find(const std::unordered_map<int, int>& container, const int element)
 {
 	auto it = container.find(element);
 	if (it == container.end())
-		std::cout << element << " ê²€ìƒ‰: ì‹¤íŒ¨" << std::endl;
+		std::cout << element << " °Ë»ö: ½ÇÆÐ" << std::endl;
 	else
-		std::cout << element << " ê²€ìƒ‰: ì„±ê³µ, ê°’ = " << it->second << std::endl;
+		std::cout << element << " °Ë»ö: ¼º°ø, °ª = " << it->second << std::endl;
 }
 
 int main()
 {
-	std::cout << "*** std::unordered_set ì˜ˆì œ ***" << std::endl;
+	std::cout << "*** std::unordered_set ¿¹Á¦ ***" << std::endl;
 	std::unordered_set<int> set1 = {1, 2, 3, 4, 5};
 
-	std::cout << "set1 ì´ˆê¹ƒê°’: "; print(set1);
+	std::cout << "set1 ÃÊ±ê°ª: "; print(set1);
 
 	set1.insert(2);
-	std::cout << "2 ì‚½ìž…: "; print(set1);
+	std::cout << "2 »ðÀÔ: "; print(set1);
 
 	set1.insert(10);
 	set1.insert(300);
-	std::cout << "10, 300 ì‚½ìž…: "; print(set1);
+	std::cout << "10, 300 »ðÀÔ: "; print(set1);
 
 	find(set1, 4);
 	find(set1, 100);
 
 	set1.erase(2);
-	std::cout << "2 ì‚­ì œ:"; print(set1);
+	std::cout << "2 »èÁ¦:"; print(set1);
 
 	find(set1, 2);
 
-	std::cout << "*** std::unordered_map ì˜ˆì œ ***" << std::endl;
+	std::cout << "*** std::unordered_map ¿¹Á¦ ***" << std::endl;
 	std::unordered_map<int, int> squareMap;
 
 	squareMap.insert({2, 4});
 	squareMap[3] = 9;
-	std::cout << "2, 3ì˜ ì œê³± ì‚½ìž…: "; print(squareMap);
+	std::cout << "2, 3ÀÇ Á¦°ö »ðÀÔ: "; print(squareMap);
 
 	squareMap[20] = 400;
 	squareMap[30] = 900;
-	std::cout << "20, 30ì˜ ì œê³± ì‚½ìž…: "; print(squareMap);
+	std::cout << "20, 30ÀÇ Á¦°ö »ðÀÔ: "; print(squareMap);
 
 	find(squareMap, 10);
 	find(squareMap, 20);

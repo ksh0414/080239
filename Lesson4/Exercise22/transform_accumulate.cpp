@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -7,13 +7,13 @@
 void transform_test(std::vector<int> S)
 {
 	std::vector<int> Tr;
-	std::cout << "[ë§µ í…ŒìŠ¤íŠ¸]" << std::endl;
-	std::cout << "ìž…ë ¥ ë°°ì—´, S: ";
+	std::cout << "[¸Ê Å×½ºÆ®]" << std::endl;
+	std::cout << "ÀÔ·Â ¹è¿­, S: ";
 	for (auto i : S)
 		std::cout << i << " ";
 	std::cout << std::endl;
 
-	// std::transform() í•¨ìˆ˜ ì‚¬ìš©
+	// std::transform() ÇÔ¼ö »ç¿ë
 	std::transform(S.begin(), S.end(), std::back_inserter(Tr), 
 		[](int x) { return std::pow(x, 2.0); });
 
@@ -22,7 +22,7 @@ void transform_test(std::vector<int> S)
 		std::cout << i << " ";
 	std::cout << std::endl;
 
-	// std::for_each() í•¨ìˆ˜ ì‚¬ìš©
+	// std::for_each() ÇÔ¼ö »ç¿ë
 	std::for_each(S.begin(), S.end(), 
 		[](int& x) { x = std::pow(x, 2.0); });
 
@@ -34,13 +34,13 @@ void transform_test(std::vector<int> S)
 
 void reduce_test(std::vector<int> S)
 {
-	std::cout << std::endl << "[ë¦¬ë“€ìŠ¤ í…ŒìŠ¤íŠ¸]" << std::endl;
-	std::cout << "ìž…ë ¥ ë°°ì—´, S: ";
+	std::cout << std::endl << "[¸®µà½º Å×½ºÆ®]" << std::endl;
+	std::cout << "ÀÔ·Â ¹è¿­, S: ";
 	for (auto i : S)
 		std::cout << i << " ";
 	std::cout << std::endl;
 
-	// std::accumulate() í•¨ìˆ˜ ì‚¬ìš©
+	// std::accumulate() ÇÔ¼ö »ç¿ë
 	auto ans = std::accumulate(S.begin(), S.end(), 0,
 		[](int acc, int x) { return acc + x; });
 	std::cout << "std::accumulate(), ans: " << ans << std::endl;
